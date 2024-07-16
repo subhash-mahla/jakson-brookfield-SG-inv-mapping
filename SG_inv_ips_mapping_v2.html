@@ -17,7 +17,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 2px;
+            margin: 10px;
             width: 7%; /* Adjust the width to fit 5 groups in a row */
         }
 
@@ -30,7 +30,7 @@
         .group button {
             margin: 2px;
             padding: 4px;
-            font-size: 10px;
+            font-size: 14px;
         }
 
         .ICR1 { background-color: #ffcccc; }
@@ -268,7 +268,7 @@
 
             for (const key in jsonData) {
                 if (jsonData.hasOwnProperty(key)) {
-                    if (groupCount % 16 === 0) {
+                    if (groupCount % 12 === 0) {
                         groupRow = document.createElement('div');
                         groupRow.className = 'group-row';
                         container.appendChild(groupRow);
@@ -300,6 +300,36 @@
 
         // Create buttons when the page loads
         window.onload = createButtons;
+
+
+        function getTableData() {
+            const tableBody = document.querySelector('.el-table__body');
+            if (!tableBody) {
+                return null; // Handle case where table isn't found
+            }
+
+            const rows = tableBody.querySelectorAll('tr');
+            const data = [];
+
+            for (const row of rows) {
+                const rowData = [];
+                const cells = row.querySelectorAll('td');
+                for (const cell of cells) {
+                rowData.push(cell.textContent.trim()); // Extract cell text and trim
+                }
+                data.push(rowData);
+            }
+
+            return data;
+            }
+        function updateTableData() {
+            const jsonData = getTableData();
+            if (jsonData) {
+                tableDataVariable = jsonData; // Replace 'tableDataVariable' with your desired variable name
+            }
+        }
+
+
     </script>
 </head>
 <body>
