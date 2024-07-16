@@ -6,11 +6,10 @@
   <title>Fault Message Data</title>
 </head>
 <body>
-  <h1>Fault Message Data4</h1>
+  <h1>Fault Message Data 5</h1>
   <table id="faultDataTable">
     <thead>
       <tr>
-        <!-- Add appropriate table headers here -->
         <th>ID</th>
         <th>Message</th>
         <th>Timestamp</th>
@@ -22,35 +21,16 @@
   </table>
   <script>
     const tableBody = document.getElementById('faultDataTable').querySelector('tbody');
-    const url = 'http://172.16.1.4/#/home/faultMessages'; // URL with hash fragment
+    const url = '172.16.1.4/#/home/faultMessages';
 
-    fetch(url)
+    fetch(url, { mode: 'no-cors' })
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-        return response.text(); // Get the response as text
-      })
-      .then(data => {
-        // Process the data here
-        // Assuming data is HTML, we need to parse it
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const tableRows = doc.querySelectorAll('tr');
-
-        tableRows.forEach(row => {
-          const tableRow = document.createElement('tr');
-          row.querySelectorAll('td').forEach(cell => {
-            const tableCell = document.createElement('td');
-            tableCell.textContent = cell.textContent;
-            tableRow.appendChild(tableCell);
-          });
-          tableBody.appendChild(tableRow);
-        });
+        // With 'no-cors' mode, you cannot access the response data directly
+        // You might not be able to process the data as intended
+        console.error('Response is opaque and cannot be accessed');
       })
       .catch(error => {
         console.error('Error fetching data:', error);
-        // Handle errors here, like displaying an error message to the user
       });
   </script>
 </body>
