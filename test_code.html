@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fault Message Data 2</title>
+  <title>Fault Message Data</title>
 </head>
 <body>
   <h1>Fault Message Data</h1>
@@ -22,7 +22,7 @@
   </table>
   <script>
     const tableBody = document.getElementById('faultDataTable').querySelector('tbody');
-    const url = 'http://172.16.1.4/api/faultMessages'; // Assuming this URL returns JSON data
+    const url = 'https://172.16.1.4/api/faultMessages'; // Use HTTPS
 
     fetch(url)
       .then(response => {
