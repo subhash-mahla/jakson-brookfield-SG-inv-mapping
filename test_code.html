@@ -25,9 +25,28 @@
 
     fetch(url, { mode: 'no-cors' })
       .then(response => {
-        // With 'no-cors' mode, you cannot access the response data directly
-        // You might not be able to process the data as intended
-        console.error('Response is opaque and cannot be accessed');
+        console.log(response)
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.text(); // Get the response as text
+      })
+      .then(data => {
+        // Process the data here
+        // Assuming data is HTML, we need to parse it
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+        const tableRows = doc.querySelectorAll('tr');
+
+        tableRows.forEach(row => {
+          const tableRow = document.createElement('tr');
+          row.querySelectorAll('td').forEach(cell => {
+            const tableCell = document.createElement('td');
+            tableCell.textContent = cell.textContent;
+            tableRow.appendChild(tableCell);
+          });
+          tableBody.appendChild(tableRow);
+        });
       })
       .catch(error => {
         console.error('Error fetching data:', error);
