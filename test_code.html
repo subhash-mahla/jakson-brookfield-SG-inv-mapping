@@ -6,7 +6,7 @@
   <title>Fault Message Data</title>
 </head>
 <body>
-  <h1>Fault Message Data 3</h1>
+  <h1>Fault Message Data4</h1>
   <table id="faultDataTable">
     <thead>
       <tr>
@@ -22,27 +22,29 @@
   </table>
   <script>
     const tableBody = document.getElementById('faultDataTable').querySelector('tbody');
-    const url = '172.16.1.4/#/home/faultMessages'; // Use HTTPS
+    const url = 'http://172.16.1.4/#/home/faultMessages'; // URL with hash fragment
 
     fetch(url)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok ' + response.statusText);
         }
-        return response.json(); // Get the response as JSON
+        return response.text(); // Get the response as text
       })
       .then(data => {
-        // Assuming data is an array of objects representing each table row
-        data.forEach(rowData => {
+        // Process the data here
+        // Assuming data is HTML, we need to parse it
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+        const tableRows = doc.querySelectorAll('tr');
+
+        tableRows.forEach(row => {
           const tableRow = document.createElement('tr');
-          // Add table cells for each data field in rowData
-          for (const key in rowData) {
-            if (rowData.hasOwnProperty(key)) {
-              const tableCell = document.createElement('td');
-              tableCell.textContent = rowData[key];
-              tableRow.appendChild(tableCell);
-            }
-          }
+          row.querySelectorAll('td').forEach(cell => {
+            const tableCell = document.createElement('td');
+            tableCell.textContent = cell.textContent;
+            tableRow.appendChild(tableCell);
+          });
           tableBody.appendChild(tableRow);
         });
       })
