@@ -1,56 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fault Message Data</title>
+    <title>SunGrow Inverters IP Map</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        /* Button container styling */
+        #buttonContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Buttons styling */
+        .group button {
+            margin: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .group button:hover {
+            opacity: 0.9;
+        }
+
+        /* Creator Section */
+        #footer {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+        }
+
+        #footer a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Popup styling */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        #popup button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            border: none;
+            background-color: #f44336;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #popup button:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Background overlay */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+    <script>
+        // Function to open the popup
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
 </head>
 <body>
-  <h1>Fault Message Data 5</h1>
-  <table id="faultDataTable">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Message</th>
-        <th>Timestamp</th>
-        <!-- Add more headers as needed -->
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-  <script>
-    const tableBody = document.getElementById('faultDataTable').querySelector('tbody');
-    const url = '172.16.1.4/#/home/faultMessages';
+    <h1>SunGrow Inverters IP Map</h1>
+    <div id="buttonContainer">
+        <!-- Buttons will be generated dynamically -->
+    </div>
 
-    fetch(url, { mode: 'no-cors' })
-      .then(response => {
-        console.log(response)
-        // if (!response.ok) {
-        //   throw new Error('Network response was not ok ' + response.statusText);
-        // }
-        return response.text(); // Get the response as text
-      })
-      .then(data => {
-        // Process the data here
-        // Assuming data is HTML, we need to parse it
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const tableRows = doc.querySelectorAll('tr');
+    <!-- Footer Section -->
+    <div id="footer">
+        <a onclick="showPopup()">created by Subhash Mahla</a>
+    </div>
 
-        tableRows.forEach(row => {
-          const tableRow = document.createElement('tr');
-          row.querySelectorAll('td').forEach(cell => {
-            const tableCell = document.createElement('td');
-            tableCell.textContent = cell.textContent;
-            tableRow.appendChild(tableCell);
-          });
-          tableBody.appendChild(tableRow);
-        });
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  </script>
+    <!-- Popup Section -->
+    <div id="overlay" onclick="closePopup()"></div>
+    <div id="popup">
+        <h2>Contact Information</h2>
+        <p>Name: Subhash Mahla</p>
+        <p>Contact: +91-9876543210</p>
+        <p>Email: subhash.mahla@example.com</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        // Example function to create buttons dynamically
+        function createButtons() {
+            const container = document.getElementById('buttonContainer');
+            for (let i = 1; i <= 12; i++) {
+                const button = document.createElement('button');
+                button.textContent = `Button ${i}`;
+                button.style.width = "150px";
+                button.style.height = "50px";
+                container.appendChild(button);
+            }
+        }
+        window.onload = createButtons;
+    </script>
 </body>
 </html>
