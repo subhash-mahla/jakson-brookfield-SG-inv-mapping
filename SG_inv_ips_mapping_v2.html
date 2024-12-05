@@ -3,9 +3,23 @@
 <head>
     <title>SunGrow Inverters IP Map</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h2 {
+            margin-top: 10px;
+        }
         #buttonContainer {
             display: flex;
             flex-wrap: wrap;
+            margin-bottom: 40px;
         }
         /* #buttonContainer last_button {
             margin: 10px;
@@ -31,6 +45,68 @@
             margin: 4px;
             padding: 10px;
             font-size: 16px;
+        }
+        .group button:hover {
+            opacity: 0.7;
+        }
+        /* Creator Section */
+        #footer {
+            margin-top: 10px;
+            font-size: 16px;
+            text-align: center;
+            position: fixed;
+            bottom: 10px;
+        }
+
+        #footer a {
+            text-decoration: none;
+            color: #ff0000;
+            text-shadow: 1px 1px 1px  #000000;
+            font-weight:bolder;
+            cursor: pointer;
+            font-size: large;
+        }
+
+        /* Popup styling */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        #popup button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            border: none;
+            background-color: #f44336;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #popup button:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Background overlay */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
         }
 
         .ICR1 { background-color: #ffcccc; }
@@ -358,13 +434,43 @@
                 tableDataVariable = jsonData; // Replace 'tableDataVariable' with your desired variable name
             }
         }
+        // Function to open the popup
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
 
 
     </script>
 </head>
 <body>
-    <h1>SunGrow Inverters IP Map</h1>
+    <!-- <h1>SunGrow Inverters IP Map</h1>
     <div id="buttonContainer"></div>
-    <p><strong>created by subhash-mahla</strong></p>
+    <p><strong>created by subhash-mahla</strong></p> -->
+    <h2>SunGrow Inverters IP Map</h2>
+    <div id="buttonContainer">
+        <!-- Buttons will be generated dynamically -->
+    </div>
+
+    <!-- Footer Section -->
+    <div id="footer">
+        <a onclick="showPopup()">created by Subhash Mahla</a>
+    </div>
+
+    <!-- Popup Section -->
+    <div id="overlay" onclick="closePopup()"></div>
+    <div id="popup">
+        <h2>Contact Information</h2>
+        <p>Subhash Mahla</p>
+        <p>Contact: +91-8890649684</p>
+        <p>Email: --</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
 </body>
 </html>
